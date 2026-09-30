@@ -1,0 +1,2079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SUBNET MASTER · Deep Ocean</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+:root{
+  /* Deep Ocean — navy + teal + gold, no pink/purple */
+  --c-primary:#0ea5e9;        /* ocean blue */
+  --c-primary-soft:#38bdf8;
+  --c-primary-deep:#0284c7;
+  --c-accent:#14b8a6;         /* bright teal */
+  --c-accent-soft:#2dd4bf;
+  --c-accent-deep:#0d9488;
+  --c-gold:#fbbf24;           /* warm gold */
+  --c-gold-soft:#fcd34d;
+  --c-gold-deep:#d97706;
+
+  --bg-app:#050b14;
+  --bg-1:#0a1520;
+  --bg-2:#0f1e2e;
+  --bg-3:#16293d;
+  --bg-4:#1f3651;
+
+  --fg-1:#eaf4ff;
+  --fg-2:#b6cde0;
+  --fg-3:#7089a3;
+  --fg-4:#455a72;
+
+  --stroke:rgba(182,205,224,.08);
+  --stroke-2:rgba(182,205,224,.14);
+  --stroke-3:rgba(182,205,224,.22);
+
+  --radius-xl:24px;
+  --radius-lg:16px;
+  --radius-md:12px;
+  --radius-sm:8px;
+
+  --shadow-sm:0 2px 8px rgba(0,0,0,.7);
+  --shadow-md:0 12px 32px -12px rgba(0,0,0,.9);
+  --shadow-lg:0 32px 64px -32px rgba(0,0,0,1);
+
+  /* Bit breakdown — blue + teal */
+  --bit-blue:#0ea5e9;
+  --bit-blue-soft:rgba(14,165,233,.15);
+  --bit-blue-border:rgba(14,165,233,.5);
+  --bit-teal:#14b8a6;
+  --bit-teal-soft:rgba(20,184,166,.15);
+  --bit-teal-border:rgba(20,184,166,.5);
+  --bit-panel-border:rgba(14,165,233,.18);
+}
+
+html, body{ min-height:100vh; }
+
+body{
+  font-family:'Inter', system-ui, sans-serif;
+  color:var(--fg-1);
+  background:var(--bg-app);
+  overflow-x:hidden;
+  position:relative;
+  -webkit-font-smoothing:antialiased;
+}
+
+body::before{
+  content:'';
+  position:fixed; inset:0;
+  background:
+    radial-gradient(circle 700px at 8% 0%, rgba(14,165,233,.12), transparent 60%),
+    radial-gradient(circle 900px at 92% 100%, rgba(20,184,166,.10), transparent 60%),
+    linear-gradient(180deg, #050b14 0%, #081220 100%);
+  z-index:-2;
+}
+
+body::after{
+  content:'';
+  position:fixed; inset:0;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(182,205,224,.02) 1px, transparent 0);
+  background-size:24px 24px;
+  z-index:-1;
+  pointer-events:none;
+}
+
+.studio{
+  max-width:1380px;
+  margin:0 auto;
+  padding:32px 28px 56px;
+  display:flex;
+  flex-direction:column;
+  gap:28px;
+}
+
+/* ===== HEADER ===== */
+.studio-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  padding:20px 28px;
+  background:linear-gradient(180deg, rgba(22,41,61,.75), rgba(10,21,32,.55));
+  border:1px solid var(--stroke-2);
+  border-radius:var(--radius-xl);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  box-shadow:var(--shadow-md), inset 0 1px 0 rgba(255,255,255,.04);
+  position:relative;
+  overflow:hidden;
+}
+
+.studio-head::before{
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg, transparent 0%, var(--c-primary-soft) 50%, transparent 100%);
+  opacity:.5;
+}
+
+.head-left{ display:flex; align-items:center; gap:16px; }
+
+.logo{
+  width:52px; height:52px;
+  border-radius:14px;
+  display:grid; place-items:center;
+  background:linear-gradient(135deg, #0ea5e9 0%, #14b8a6 100%);
+  border:1px solid rgba(255,255,255,.15);
+  color:#fff;
+  font-size:24px;
+  font-weight:800;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.25),
+    0 8px 24px -8px rgba(14,165,233,.7);
+  position:relative;
+}
+
+.logo::after{
+  content:'';
+  position:absolute; inset:0;
+  border-radius:14px;
+  background:linear-gradient(180deg, rgba(255,255,255,.15), transparent 60%);
+  pointer-events:none;
+}
+
+.head-text h1{
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:-.03em;
+  color:var(--fg-1);
+  line-height:1.1;
+}
+
+.head-text p{
+  font-size:11px;
+  color:var(--fg-3);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-weight:600;
+  margin-top:4px;
+}
+
+.head-right{ display:flex; align-items:center; gap:12px; }
+
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 16px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  background:rgba(14,165,233,.08);
+  border:1px solid rgba(14,165,233,.25);
+  color:var(--c-primary-soft);
+}
+
+.pill-dot{
+  width:6px; height:6px;
+  border-radius:50%;
+  background:var(--c-primary);
+  box-shadow:0 0 8px var(--c-primary);
+  animation:pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse{
+  0%,100%{ opacity:1; transform:scale(1); }
+  50%{ opacity:.5; transform:scale(.7); }
+}
+
+/* ===== MODE SWITCH ===== */
+.mode-switch{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  padding:6px;
+  background:rgba(10,21,32,.7);
+  border:1px solid var(--stroke-2);
+  border-radius:var(--radius-lg);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+
+.mode-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:14px 24px;
+  border:none;
+  border-radius:var(--radius-md);
+  background:transparent;
+  color:var(--fg-3);
+  font-family:'Inter', sans-serif;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:.01em;
+  cursor:pointer;
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+  position:relative;
+}
+
+.mode-btn:hover{
+  color:var(--fg-1);
+  background:rgba(182,205,224,.04);
+}
+
+.mode-btn.active{
+  color:#fff;
+  background:linear-gradient(135deg, var(--c-primary) 0%, var(--c-accent) 100%);
+  box-shadow:
+    0 8px 20px -8px rgba(14,165,233,.7),
+    inset 0 1px 0 rgba(255,255,255,.25);
+  font-weight:800;
+}
+
+.mode-btn-icon{
+  font-size:16px;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,.6));
+}
+
+/* ===== MODE CONTAINER ===== */
+.mode{ display:none; }
+.mode.active{ display:flex; flex-direction:column; gap:24px; }
+
+/* ===== PANEL ===== */
+.panel{
+  background:linear-gradient(180deg, rgba(22,41,61,.6), rgba(10,21,32,.6));
+  border:1px solid var(--stroke-2);
+  border-radius:var(--radius-xl);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  box-shadow:var(--shadow-md), inset 0 1px 0 rgba(255,255,255,.03);
+  overflow:hidden;
+  position:relative;
+  width:100%;
+}
+
+.panel-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:18px 24px;
+  border-bottom:1px solid var(--stroke);
+  background:linear-gradient(90deg, rgba(14,165,233,.04), transparent 70%);
+}
+
+.panel-head-left{ display:flex; align-items:center; gap:12px; }
+
+.panel-icon{
+  width:36px; height:36px;
+  border-radius:10px;
+  display:grid; place-items:center;
+  background:rgba(14,165,233,.10);
+  border:1px solid rgba(14,165,233,.22);
+  color:var(--c-primary-soft);
+  font-size:15px;
+  flex-shrink:0;
+}
+
+.panel-title{
+  font-size:14px;
+  font-weight:700;
+  color:var(--fg-1);
+  letter-spacing:-.005em;
+}
+
+.panel-sub{
+  font-size:11px;
+  color:var(--fg-3);
+  margin-top:2px;
+}
+
+.panel-meta{
+  font-size:11px;
+  font-weight:600;
+  color:var(--fg-3);
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  padding:6px 12px;
+  border-radius:999px;
+  background:rgba(182,205,224,.05);
+  border:1px solid var(--stroke-2);
+}
+
+.panel-body{
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+/* ===== FORM ===== */
+.field{ display:flex; flex-direction:column; gap:8px; }
+
+.field-label{
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--fg-3);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.field-label-dot{
+  width:6px; height:6px;
+  border-radius:2px;
+  background:var(--c-primary-soft);
+}
+
+.input,
+.select{
+  width:100%;
+  padding:12px 16px;
+  background:rgba(5,11,20,.7);
+  border:1px solid var(--stroke-2);
+  border-radius:var(--radius-md);
+  color:var(--fg-1);
+  font-family:'JetBrains Mono', monospace;
+  font-size:13px;
+  font-weight:500;
+  transition:all .2s ease;
+  outline:none;
+}
+
+.input:hover,
+.select:hover{
+  border-color:var(--stroke-3);
+  background:rgba(5,11,20,.9);
+}
+
+.input:focus,
+.select:focus{
+  border-color:var(--c-primary);
+  background:rgba(5,11,20,.95);
+  box-shadow:0 0 0 4px rgba(14,165,233,.12);
+}
+
+.input::placeholder{ color:var(--fg-4); }
+
+.select{
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237089a3' d='M6 8.5L1.5 4h9z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 16px center;
+  padding-right:44px;
+  cursor:pointer;
+}
+
+.select option{ background:#0f1e2e; color:var(--fg-1); }
+
+.row-2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.row-3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+
+.info-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 14px;
+  border-radius:999px;
+  background:rgba(14,165,233,.08);
+  border:1px solid rgba(14,165,233,.22);
+  color:var(--c-primary-soft);
+  font-size:11px;
+  font-weight:600;
+  font-family:'JetBrains Mono', monospace;
+  align-self:flex-start;
+}
+
+.hint-box{
+  padding:10px 14px;
+  border-radius:var(--radius-sm);
+  background:rgba(14,165,233,.04);
+  border-left:2px solid rgba(14,165,233,.5);
+  font-size:11px;
+  line-height:1.6;
+  color:var(--fg-3);
+}
+
+/* ===== BUTTONS ===== */
+.btn-row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:12px 20px;
+  border:none;
+  border-radius:var(--radius-md);
+  font-family:'Inter', sans-serif;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:all .2s cubic-bezier(.4,0,.2,1);
+  position:relative;
+  overflow:hidden;
+}
+
+.btn::before{
+  content:'';
+  position:absolute;
+  top:0; left:-100%; width:100%; height:100%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.25), transparent);
+  transition:left .6s ease;
+}
+
+.btn:hover::before{ left:100%; }
+
+.btn-primary{
+  background:linear-gradient(135deg, var(--c-primary) 0%, var(--c-accent) 100%);
+  color:#fff;
+  box-shadow:
+    0 8px 20px -8px rgba(14,165,233,.7),
+    inset 0 1px 0 rgba(255,255,255,.25);
+  font-weight:800;
+}
+
+.btn-primary:hover{
+  transform:translateY(-1px);
+  box-shadow:
+    0 12px 28px -8px rgba(14,165,233,.9),
+    inset 0 1px 0 rgba(255,255,255,.3);
+}
+
+.btn-ghost{
+  background:rgba(182,205,224,.04);
+  border:1px solid var(--stroke-2);
+  color:var(--fg-2);
+}
+
+.btn-ghost:hover{
+  background:rgba(14,165,233,.08);
+  border-color:rgba(14,165,233,.4);
+  color:var(--c-primary-soft);
+}
+
+.btn-danger{
+  background:rgba(251,191,36,.08);
+  border:1px solid rgba(251,191,36,.3);
+  color:var(--c-gold);
+  padding:6px 12px;
+  font-size:10px;
+  border-radius:8px;
+}
+
+.btn-danger:hover{
+  background:rgba(251,191,36,.18);
+  border-color:var(--c-gold);
+}
+
+/* ===== ALERT ===== */
+.alert{
+  display:none;
+  align-items:center;
+  gap:10px;
+  padding:12px 16px;
+  border-radius:var(--radius-md);
+  font-size:12px;
+  font-weight:600;
+  border:1px solid;
+}
+
+.alert.show{ display:flex; animation:alertIn .3s ease; }
+
+@keyframes alertIn{
+  from{ opacity:0; transform:translateY(-6px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+.alert-error{
+  background:rgba(251,191,36,.08);
+  border-color:rgba(251,191,36,.35);
+  color:var(--c-gold);
+}
+
+.alert-success{
+  background:rgba(20,184,166,.08);
+  border-color:rgba(20,184,166,.35);
+  color:var(--c-accent-soft);
+}
+
+/* ===== BIT BREAKDOWN PANEL ===== */
+.bit-panel{
+  padding:22px 24px;
+  background:rgba(5,11,20,.65);
+  border:1px solid var(--bit-panel-border);
+  border-radius:var(--radius-lg);
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+}
+
+.bit-panel-title{
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.02em;
+  color:var(--fg-2);
+  padding-bottom:14px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.bit-top-row{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:22px;
+  align-items:start;
+}
+
+.bit-field-label{
+  font-size:11px;
+  font-weight:600;
+  color:var(--fg-3);
+  margin-bottom:8px;
+  letter-spacing:.02em;
+}
+
+.bit-prefix-wrap{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.bit-slider-container{
+  flex:1;
+  position:relative;
+  padding:2px;
+  border:2px solid rgba(20,184,166,.5);
+  border-radius:6px;
+  background:rgba(20,184,166,.04);
+  transition:box-shadow .2s ease;
+}
+
+.bit-slider-container:hover{
+  box-shadow:0 0 20px -6px rgba(20,184,166,.5);
+}
+
+.bit-prefix-slider{
+  -webkit-appearance:none;
+  appearance:none;
+  width:100%;
+  height:14px;
+  border-radius:3px;
+  outline:none;
+  cursor:pointer;
+  background:#000;
+  display:block;
+  position:relative;
+  z-index:2;
+}
+
+.bit-prefix-slider::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  appearance:none;
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  background:#050b14;
+  cursor:grab;
+  border:3px solid #eaf4ff;
+  box-shadow:
+    0 2px 8px rgba(0,0,0,.95),
+    0 0 0 2px rgba(20,184,166,.7);
+  transition:transform .15s ease;
+  margin-top:-4px;
+}
+
+.bit-prefix-slider::-webkit-slider-thumb:hover{
+  transform:scale(1.12);
+}
+
+.bit-prefix-slider::-moz-range-thumb{
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  background:#050b14;
+  cursor:grab;
+  border:3px solid #eaf4ff;
+  box-shadow:0 2px 8px rgba(0,0,0,.95), 0 0 0 2px rgba(20,184,166,.7);
+}
+
+.bit-prefix-slider::-moz-range-progress{
+  background:linear-gradient(90deg, #0ea5e9, #14b8a6);
+  height:14px;
+  border-radius:3px;
+}
+
+.bit-prefix-readout{
+  font-family:'JetBrains Mono', monospace;
+  font-size:18px;
+  font-weight:700;
+  color:var(--c-accent-soft);
+  min-width:50px;
+  text-align:right;
+}
+
+.bit-octets-row{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:16px;
+}
+
+.bit-octet-block{
+  padding:14px 10px 10px;
+  background:rgba(5,11,20,.5);
+  border:1px solid rgba(182,205,224,.1);
+  border-radius:10px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  transition:border-color .2s ease;
+}
+
+.bit-octet-block:hover{
+  border-color:rgba(14,165,233,.35);
+}
+
+.bit-cells{
+  display:flex;
+  gap:4px;
+  justify-content:center;
+}
+
+.bit-cell{
+  width:26px;
+  height:32px;
+  display:grid;
+  place-items:center;
+  border-radius:5px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+  user-select:none;
+  transition:all .15s ease;
+  border:1px solid transparent;
+}
+
+/* Network bit — ocean blue */
+.bit-cell.net{
+  background:var(--bit-blue-soft);
+  border-color:var(--bit-blue-border);
+  color:var(--bit-blue);
+}
+
+.bit-cell.net:hover{
+  background:rgba(14,165,233,.3);
+  transform:translateY(-2px);
+  box-shadow:0 4px 12px -2px rgba(14,165,233,.5);
+}
+
+/* Host bit — teal */
+.bit-cell.host{
+  background:var(--bit-teal-soft);
+  border-color:var(--bit-teal-border);
+  color:var(--bit-teal);
+}
+
+.bit-cell.host:hover{
+  background:rgba(20,184,166,.3);
+  transform:translateY(-2px);
+  box-shadow:0 4px 12px -2px rgba(20,184,166,.5);
+}
+
+.bit-octet-decimal{
+  font-family:'JetBrains Mono', monospace;
+  font-size:13px;
+  font-weight:600;
+  color:var(--fg-2);
+  padding-top:6px;
+  border-top:1px solid rgba(255,255,255,.06);
+  width:60%;
+  text-align:center;
+}
+
+.bit-legend-row{
+  display:flex;
+  gap:24px;
+  font-size:12px;
+  color:var(--fg-2);
+}
+
+.bit-legend-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:500;
+}
+
+.bit-legend-swatch{
+  width:14px;
+  height:14px;
+  border-radius:3px;
+}
+
+.bit-legend-swatch.net{
+  background:var(--bit-blue);
+  box-shadow:0 0 8px rgba(14,165,233,.5);
+}
+
+.bit-legend-swatch.host{
+  background:var(--bit-teal);
+  box-shadow:0 0 8px rgba(20,184,166,.5);
+}
+
+.bit-stats-grid{
+  display:grid;
+  grid-template-columns:repeat(7, 1fr);
+  gap:0;
+  border:1px solid rgba(182,205,224,.08);
+  border-radius:10px;
+  overflow:hidden;
+  background:rgba(5,11,20,.4);
+}
+
+.bit-stat{
+  padding:16px 14px;
+  border-right:1px solid rgba(182,205,224,.06);
+  transition:background .2s ease;
+}
+
+.bit-stat:last-child{ border-right:none; }
+.bit-stat:hover{ background:rgba(14,165,233,.03); }
+
+.bit-stat-label{
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--fg-3);
+  margin-bottom:8px;
+  line-height:1.2;
+}
+
+.bit-stat-value{
+  font-family:'JetBrains Mono', monospace;
+  font-size:13px;
+  font-weight:600;
+  color:var(--fg-1);
+  word-break:break-word;
+  line-height:1.25;
+}
+
+.bit-info-footer{
+  font-size:12px;
+  color:var(--fg-3);
+  line-height:1.6;
+  padding-top:4px;
+}
+
+/* ===== RESULTS GRID ===== */
+.results-grid{
+  display:none;
+  flex-direction:column;
+  gap:18px;
+}
+
+.results-grid.show{
+  display:flex;
+  animation:fadeUp .35s ease;
+}
+
+@keyframes fadeUp{
+  from{ opacity:0; transform:translateY(8px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+.result-cards{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:12px;
+}
+
+.result-card{
+  padding:16px;
+  background:rgba(22,41,61,.6);
+  border:1px solid var(--stroke-2);
+  border-radius:var(--radius-lg);
+  transition:all .25s ease;
+  position:relative;
+  overflow:hidden;
+}
+
+.result-card::after{
+  content:'';
+  position:absolute;
+  left:0; top:0; bottom:0; width:2px;
+  background:linear-gradient(180deg, var(--c-primary), var(--c-accent));
+  opacity:0;
+  transition:opacity .25s ease;
+}
+
+.result-card:hover{
+  border-color:rgba(14,165,233,.35);
+  transform:translateY(-2px);
+  box-shadow:0 12px 24px -12px rgba(14,165,233,.3);
+}
+
+.result-card:hover::after{ opacity:1; }
+
+.result-label{
+  font-size:9.5px;
+  font-weight:700;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--fg-3);
+  margin-bottom:8px;
+}
+
+.result-value{
+  font-family:'JetBrains Mono', monospace;
+  font-size:13px;
+  font-weight:700;
+  color:var(--fg-1);
+  word-break:break-all;
+  line-height:1.3;
+}
+
+.big-stats{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:12px;
+}
+
+.big-stat{
+  padding:20px 16px;
+  border-radius:var(--radius-lg);
+  text-align:center;
+  background:rgba(22,41,61,.6);
+  border:1px solid var(--stroke-2);
+  position:relative;
+  overflow:hidden;
+  transition:all .3s ease;
+}
+
+.big-stat:nth-child(1)::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, transparent, var(--c-primary), transparent); }
+.big-stat:nth-child(2)::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, transparent, var(--c-accent), transparent); }
+.big-stat:nth-child(3)::before{ content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, transparent, var(--c-gold), transparent); }
+
+.big-stat:hover{
+  transform:translateY(-3px);
+  border-color:rgba(14,165,233,.3);
+}
+
+.big-stat-value{
+  font-family:'Inter', sans-serif;
+  font-size:28px;
+  font-weight:800;
+  line-height:1;
+  margin-bottom:8px;
+  letter-spacing:-.02em;
+}
+
+.big-stat:nth-child(1) .big-stat-value{ color:var(--c-primary-soft); }
+.big-stat:nth-child(2) .big-stat-value{ color:var(--c-accent-soft); }
+.big-stat:nth-child(3) .big-stat-value{ color:var(--c-gold-soft); }
+
+.big-stat-label{
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--fg-3);
+}
+
+.vlsm-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  max-height:400px;
+  overflow-y:auto;
+  padding-right:6px;
+}
+
+.vlsm-row{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:12px;
+  padding:12px;
+  background:rgba(22,41,61,.5);
+  border:1px solid var(--stroke-2);
+  border-radius:var(--radius-md);
+  align-items:center;
+  transition:all .2s ease;
+  animation:slideIn .3s ease;
+}
+
+@keyframes slideIn{
+  from{ opacity:0; transform:translateX(-8px); }
+  to{ opacity:1; transform:translateX(0); }
+}
+
+.vlsm-row:hover{
+  border-color:rgba(14,165,233,.35);
+  background:rgba(22,41,61,.8);
+}
+
+.vlsm-row.header{
+  background:linear-gradient(90deg, rgba(14,165,233,.08), rgba(20,184,166,.04));
+  border-color:rgba(14,165,233,.22);
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--c-primary-soft);
+  padding:12px 14px;
+}
+
+.vlsm-input{
+  padding:10px 12px;
+  background:rgba(5,11,20,.7);
+  border:1px solid var(--stroke-2);
+  border-radius:var(--radius-sm);
+  color:var(--fg-1);
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px;
+  outline:none;
+  transition:all .2s ease;
+  width:100%;
+}
+
+.vlsm-input:focus{
+  border-color:var(--c-primary);
+  box-shadow:0 0 0 3px rgba(14,165,233,.12);
+}
+
+.subnet-table-wrap{
+  width:100%;
+  overflow:auto;
+  border-radius:var(--radius-lg);
+  border:1px solid var(--stroke-2);
+  background:rgba(5,11,20,.55);
+}
+
+.subnet-table{
+  width:100%;
+  border-collapse:collapse;
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px;
+}
+
+.subnet-table thead{ position:sticky; top:0; z-index:2; }
+
+.subnet-table th{
+  padding:16px 18px;
+  text-align:left;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--c-primary-soft);
+  background:rgba(10,21,32,.98);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(14,165,233,.22);
+  white-space:nowrap;
+}
+
+.subnet-table td{
+  padding:14px 18px;
+  color:var(--fg-2);
+  border-bottom:1px solid rgba(182,205,224,.05);
+  white-space:nowrap;
+  vertical-align:middle;
+}
+
+.subnet-table tbody tr{ transition:background .2s ease; }
+.subnet-table tbody tr:hover{ background:rgba(14,165,233,.04); }
+.subnet-table tbody tr:last-child td{ border-bottom:none; }
+
+.subnet-table .row-num{ color:var(--fg-3); font-weight:600; width:32px; }
+
+.cell-with-copy{ display:flex; align-items:center; gap:10px; }
+
+.cidr-chip{
+  display:inline-flex;
+  align-items:center;
+  padding:5px 12px;
+  border-radius:8px;
+  background:rgba(14,165,233,.1);
+  border:1px solid rgba(14,165,233,.35);
+  color:var(--c-primary-soft);
+  font-family:'JetBrains Mono', monospace;
+  font-size:12px;
+  font-weight:700;
+}
+
+.copy-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:4px 10px;
+  border-radius:6px;
+  background:rgba(182,205,224,.04);
+  border:1px solid rgba(182,205,224,.12);
+  color:var(--fg-3);
+  font-family:'Inter', sans-serif;
+  font-size:10px;
+  font-weight:600;
+  cursor:pointer;
+  transition:all .18s ease;
+}
+
+.copy-btn:hover{
+  background:rgba(14,165,233,.12);
+  border-color:rgba(14,165,233,.4);
+  color:var(--c-primary-soft);
+}
+
+.copy-btn:active{ transform:scale(.96); }
+
+.data-table-wrap{
+  width:100%;
+  overflow:auto;
+  border-radius:var(--radius-lg);
+  border:1px solid var(--stroke-2);
+  background:rgba(5,11,20,.4);
+}
+
+.data-table{
+  width:100%;
+  border-collapse:collapse;
+  font-family:'JetBrains Mono', monospace;
+  font-size:11.5px;
+}
+
+.data-table thead{ position:sticky; top:0; z-index:2; }
+
+.data-table th{
+  padding:14px 16px;
+  text-align:left;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--c-primary-soft);
+  background:rgba(22,41,61,.98);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(14,165,233,.22);
+  white-space:nowrap;
+}
+
+.data-table td{
+  padding:12px 16px;
+  color:var(--fg-2);
+  border-bottom:1px solid rgba(182,205,224,.05);
+  white-space:nowrap;
+}
+
+.data-table tbody tr{ transition:background .2s ease; }
+.data-table tbody tr:hover{ background:rgba(14,165,233,.04); }
+.data-table tbody tr:last-child td{ border-bottom:none; }
+
+.actions{
+  display:flex;
+  gap:10px;
+  padding-top:16px;
+  border-top:1px solid var(--stroke);
+}
+
+.actions .btn{ flex:1; }
+
+::-webkit-scrollbar{ width:10px; height:10px; }
+::-webkit-scrollbar-track{ background:rgba(5,11,20,.5); border-radius:10px; }
+::-webkit-scrollbar-thumb{
+  background:rgba(182,205,224,.15);
+  border-radius:10px;
+  border:2px solid rgba(5,11,20,.5);
+}
+::-webkit-scrollbar-thumb:hover{ background:rgba(182,205,224,.28); }
+
+.toast{
+  position:fixed;
+  bottom:32px;
+  left:50%;
+  transform:translateX(-50%) translateY(100px);
+  padding:12px 24px;
+  background:linear-gradient(135deg, var(--c-primary) 0%, var(--c-accent) 100%);
+  color:#fff;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:800;
+  box-shadow:0 12px 32px -8px rgba(14,165,233,.7);
+  z-index:9999;
+  opacity:0;
+  transition:all .35s cubic-bezier(.4,0,.2,1);
+  pointer-events:none;
+}
+
+.toast.show{
+  transform:translateX(-50%) translateY(0);
+  opacity:1;
+}
+
+@media(max-width:1200px){
+  .bit-stats-grid{ grid-template-columns:repeat(4, 1fr); }
+  .bit-stat:nth-child(4){ border-right:none; }
+  .bit-stat:nth-child(1),
+  .bit-stat:nth-child(2),
+  .bit-stat:nth-child(3),
+  .bit-stat:nth-child(4){ border-bottom:1px solid rgba(182,205,224,.06); }
+}
+
+@media(max-width:1024px){
+  .bit-top-row{ grid-template-columns:1fr; }
+  .bit-octets-row{ grid-template-columns:1fr 1fr; }
+  .result-cards{ grid-template-columns:1fr 1fr; }
+}
+
+@media(max-width:768px){
+  .studio{ padding:20px 16px 40px; gap:20px; }
+  .studio-head{ padding:16px 20px; flex-wrap:wrap; }
+  .head-text h1{ font-size:18px; }
+  .mode-switch{ grid-template-columns:1fr; }
+  .row-2, .row-3{ grid-template-columns:1fr; }
+  .bit-octets-row{ grid-template-columns:1fr; }
+  .bit-stats-grid{ grid-template-columns:repeat(2, 1fr); }
+  .bit-stat{ border-right:1px solid rgba(182,205,224,.06); border-bottom:1px solid rgba(182,205,224,.06); }
+  .bit-stat:nth-child(2n){ border-right:none; }
+  .big-stats{ grid-template-columns:1fr; }
+  .actions{ flex-direction:column; }
+  .result-cards{ grid-template-columns:1fr; }
+  .vlsm-row{ grid-template-columns:1fr; }
+  .panel-body{ padding:18px; }
+  .bit-cell{ width:20px; height:26px; font-size:11px; }
+}
+</style>
+</head>
+<body>
+
+<div class="studio">
+
+  <header class="studio-head">
+    <div class="head-left">
+      <div class="logo">◈</div>
+      <div class="head-text">
+        <h1>Subnet Master</h1>
+        <p>Deep Ocean Network Studio</p>
+      </div>
+    </div>
+    <div class="head-right">
+      <div class="pill">
+        <span class="pill-dot"></span>
+        Live
+      </div>
+    </div>
+  </header>
+
+  <div class="mode-switch">
+    <button class="mode-btn active" onclick="switchMode('flsm', event)">
+      <span class="mode-btn-icon">▦</span>
+      FLSM · Fixed Length
+    </button>
+    <button class="mode-btn" onclick="switchMode('vlsm', event)">
+      <span class="mode-btn-icon">◈</span>
+      VLSM · Variable Length
+    </button>
+  </div>
+
+  <!-- ============ FLSM MODE ============ -->
+  <div class="mode active" id="flsm-mode">
+
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-head-left">
+          <div class="panel-icon">⚙</div>
+          <div>
+            <div class="panel-title">Configuration</div>
+            <div class="panel-sub">Fixed length subnet masking</div>
+          </div>
+        </div>
+        <div class="panel-meta">FLSM</div>
+      </div>
+      <div class="panel-body">
+
+        <div class="row-3">
+          <div class="field">
+            <label class="field-label"><span class="field-label-dot"></span>Network Address</label>
+            <input type="text" class="input" id="flsm-ip-input" placeholder="192.168.1.0" value="192.168.1.0">
+            <div id="flsm-class-badge" class="info-tag">Class C · /24</div>
+          </div>
+
+          <div class="field">
+            <label class="field-label"><span class="field-label-dot"></span>Address Class</label>
+            <select class="select" id="flsm-class-preset" onchange="applyFLSMPreset()">
+              <option value="auto" selected>Auto Detect</option>
+              <option value="A">Class A · /8</option>
+              <option value="B">Class B · /16</option>
+              <option value="C">Class C · /24</option>
+              <option value="custom">Custom Prefix</option>
+            </select>
+            <div class="hint-box">A: 1–126 → /8 · B: 128–191 → /16 · C: 192–223 → /24</div>
+          </div>
+
+          <div class="field">
+            <label class="field-label"><span class="field-label-dot"></span>CIDR & Subnets</label>
+            <div class="row-2">
+              <input type="number" class="input" id="flsm-prefix-input" min="0" max="32" value="24" placeholder="Prefix">
+              <input type="number" class="input" id="flsm-subnets-input" min="1" max="256" value="4" placeholder="Subnets">
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="calculateFLSM()">Calculate</button>
+          <button class="btn btn-ghost" onclick="resetFLSM()">Reset</button>
+        </div>
+
+        <div id="flsm-error-msg" class="alert alert-error"></div>
+        <div id="flsm-success-msg" class="alert alert-success"></div>
+
+        <div class="bit-panel">
+          <div class="bit-panel-title">Bit-level breakdown</div>
+
+          <div class="bit-top-row">
+            <div>
+              <div class="bit-field-label">Prefix length</div>
+              <div class="bit-prefix-wrap">
+                <div class="bit-slider-container">
+                  <input type="range" class="bit-prefix-slider" id="flsm-cidr-slider" min="0" max="32" value="24" oninput="onFLSMCidrSlider(this.value)">
+                </div>
+                <div class="bit-prefix-readout" id="flsm-cidr-value">/24</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bit-octets-row" id="flsm-bin-blocks"></div>
+
+          <div class="bit-legend-row">
+            <div class="bit-legend-item">
+              <span class="bit-legend-swatch net"></span>
+              Network bits
+            </div>
+            <div class="bit-legend-item">
+              <span class="bit-legend-swatch host"></span>
+              Host bits
+            </div>
+          </div>
+
+          <div class="bit-stats-grid">
+            <div class="bit-stat">
+              <div class="bit-stat-label">Subnet Mask</div>
+              <div class="bit-stat-value" id="flsm-quick-mask">—</div>
+            </div>
+            <div class="bit-stat">
+              <div class="bit-stat-label">Network Address</div>
+              <div class="bit-stat-value" id="flsm-quick-network">—</div>
+            </div>
+            <div class="bit-stat">
+              <div class="bit-stat-label">Broadcast Address</div>
+              <div class="bit-stat-value" id="flsm-quick-broadcast">—</div>
+            </div>
+            <div class="bit-stat">
+              <div class="bit-stat-label">Network Bits</div>
+              <div class="bit-stat-value" id="flsm-quick-netbits">—</div>
+            </div>
+            <div class="bit-stat">
+              <div class="bit-stat-label">Host Bits</div>
+              <div class="bit-stat-value" id="flsm-quick-hostbits">—</div>
+            </div>
+            <div class="bit-stat">
+              <div class="bit-stat-label">Total Addresses</div>
+              <div class="bit-stat-value" id="flsm-quick-total">—</div>
+            </div>
+            <div class="bit-stat">
+              <div class="bit-stat-label">Usable Hosts</div>
+              <div class="bit-stat-value" id="flsm-quick-hosts">—</div>
+            </div>
+          </div>
+
+          <div class="bit-info-footer">
+            Drag the slider to see how the network/host boundary shifts — this is exactly what a router looks at when it applies a subnet mask.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-head-left">
+          <div class="panel-icon">▣</div>
+          <div>
+            <div class="panel-title">Results</div>
+            <div class="panel-sub" id="flsm-result-count">Awaiting calculation</div>
+          </div>
+        </div>
+        <div class="panel-meta">Output</div>
+      </div>
+      <div class="panel-body">
+        <div id="flsm-results-container" class="results-grid">
+
+          <div class="result-cards">
+            <div class="result-card"><div class="result-label">Network</div><div class="result-value" id="flsm-result-network">—</div></div>
+            <div class="result-card"><div class="result-label">Prefix</div><div class="result-value" id="flsm-result-prefix">—</div></div>
+            <div class="result-card"><div class="result-label">Subnet Mask</div><div class="result-value" id="flsm-result-mask">—</div></div>
+            <div class="result-card"><div class="result-label">Broadcast</div><div class="result-value" id="flsm-result-broadcast">—</div></div>
+            <div class="result-card"><div class="result-label">First Host</div><div class="result-value" id="flsm-result-first-host">—</div></div>
+            <div class="result-card"><div class="result-label">Last Host</div><div class="result-value" id="flsm-result-last-host">—</div></div>
+            <div class="result-card"><div class="result-label">Usable Hosts</div><div class="result-value" id="flsm-result-usable">—</div></div>
+            <div class="result-card"><div class="result-label">Host Range</div><div class="result-value" id="flsm-result-host-range">—</div></div>
+          </div>
+
+          <div class="big-stats">
+            <div class="big-stat"><div class="big-stat-value" id="flsm-stat-subnets">—</div><div class="big-stat-label">Subnets</div></div>
+            <div class="big-stat"><div class="big-stat-value" id="flsm-stat-hosts-per">—</div><div class="big-stat-label">Hosts / Subnet</div></div>
+            <div class="big-stat"><div class="big-stat-value" id="flsm-stat-new-prefix">—</div><div class="big-stat-label">New Prefix</div></div>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-primary" onclick="copyFLSMResults()">Copy Results</button>
+            <button class="btn btn-ghost" onclick="exportFLSMCSV()">Export CSV</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div id="flsm-subnet-table-panel" class="panel" style="display:none;">
+      <div class="panel-head">
+        <div class="panel-head-left">
+          <div class="panel-icon">▦</div>
+          <div>
+            <div class="panel-title">Subnet Table</div>
+            <div class="panel-sub" id="flsm-subnet-count">0 subnets</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="subnet-table-wrap">
+          <table class="subnet-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Subnet (CIDR)</th>
+                <th>Network</th>
+                <th>Subnet Mask</th>
+                <th>Broadcast</th>
+                <th>Usable Range</th>
+                <th>Usable Hosts</th>
+                <th>Reserved</th>
+              </tr>
+            </thead>
+            <tbody id="flsm-subnet-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ VLSM MODE ============ -->
+  <div class="mode" id="vlsm-mode">
+
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-head-left">
+          <div class="panel-icon">⚙</div>
+          <div>
+            <div class="panel-title">Configuration</div>
+            <div class="panel-sub">Variable length subnet masking</div>
+          </div>
+        </div>
+        <div class="panel-meta">VLSM</div>
+      </div>
+      <div class="panel-body">
+
+        <div class="row-3">
+          <div class="field">
+            <label class="field-label"><span class="field-label-dot"></span>Network Address</label>
+            <input type="text" class="input" id="vlsm-ip-input" placeholder="192.168.0.0" value="192.168.0.0">
+            <div id="vlsm-class-badge" class="info-tag">Class B · /16</div>
+          </div>
+
+          <div class="field">
+            <label class="field-label"><span class="field-label-dot"></span>Address Class</label>
+            <select class="select" id="vlsm-class-preset" onchange="applyVLSMPreset()">
+              <option value="auto" selected>Auto Detect</option>
+              <option value="A">Class A · /8</option>
+              <option value="B">Class B · /16</option>
+              <option value="C">Class C · /24</option>
+              <option value="custom">Custom Prefix</option>
+            </select>
+            <div class="hint-box">Starting prefix — subnets derive below.</div>
+          </div>
+
+          <div class="field">
+            <label class="field-label"><span class="field-label-dot"></span>CIDR Prefix</label>
+            <input type="number" class="input" id="vlsm-prefix-input" min="0" max="32" value="16">
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="addVLSMSubnet()">+ Add Subnet</button>
+          <button class="btn btn-ghost" onclick="resetVLSMSubnets()">Clear All</button>
+        </div>
+
+        <div id="vlsm-error-msg" class="alert alert-error"></div>
+        <div id="vlsm-success-msg" class="alert alert-success"></div>
+
+        <div class="field-label" style="margin-top:4px;">
+          <span class="field-label-dot"></span>Subnet Requirements
+        </div>
+        <div class="vlsm-list" id="vlsm-subnets-container">
+          <div class="vlsm-row header">
+            <div>Name</div>
+            <div>Hosts Required</div>
+            <div></div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" style="width:100%;" onclick="calculateVLSM()">Calculate VLSM</button>
+
+        <div class="bit-panel">
+          <div class="bit-panel-title">Bit-level breakdown</div>
+
+          <div class="bit-top-row">
+            <div>
+              <div class="bit-field-label">Prefix length</div>
+              <div class="bit-prefix-wrap">
+                <div class="bit-slider-container">
+                  <input type="range" class="bit-prefix-slider" id="vlsm-cidr-slider" min="0" max="32" value="16" oninput="onVLSMCidrSlider(this.value)">
+                </div>
+                <div class="bit-prefix-readout" id="vlsm-cidr-value">/16</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bit-octets-row" id="vlsm-bin-blocks"></div>
+
+          <div class="bit-legend-row">
+            <div class="bit-legend-item">
+              <span class="bit-legend-swatch net"></span>
+              Network bits
+            </div>
+            <div class="bit-legend-item">
+              <span class="bit-legend-swatch host"></span>
+              Host bits
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-head-left">
+          <div class="panel-icon">▣</div>
+          <div>
+            <div class="panel-title">VLSM Results</div>
+            <div class="panel-sub" id="vlsm-result-count">Awaiting calculation</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div id="vlsm-results-container" class="results-grid">
+
+          <div class="actions" style="padding-top:0; border-top:none;">
+            <button class="btn btn-primary" onclick="copyVLSMResults()">Copy Results</button>
+            <button class="btn btn-ghost" onclick="exportVLSMCSV()">Export CSV</button>
+          </div>
+
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr><th>#</th><th>Name</th><th>Network</th><th>Mask</th><th>Prefix</th><th>Req</th><th>Usable</th><th>First</th><th>Last</th><th>Broadcast</th></tr>
+              </thead>
+              <tbody id="vlsm-results-body"></tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+let flsmCalculatedData = null;
+let vlsmCalculatedData = null;
+let vlsmSubnets = [];
+
+const binState = {
+  flsm: { octets: [192, 168, 1, 0], prefix: 24 },
+  vlsm: { octets: [192, 168, 0, 0], prefix: 16 }
+};
+
+function switchMode(mode, e) {
+  document.querySelectorAll('.mode').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.mode-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById(mode + '-mode').classList.add('active');
+  e.currentTarget.classList.add('active');
+}
+
+let toastTimeout;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => t.classList.remove('show'), 1600);
+}
+
+function copyToClipboard(text, label = 'Copied!') {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => showToast(label)).catch(() => fallbackCopy(text, label));
+  } else {
+    fallbackCopy(text, label);
+  }
+}
+
+function fallbackCopy(text, label) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); showToast(label); } catch(e) {}
+  document.body.removeChild(ta);
+}
+
+function cellCopy(value, label = 'Copy') {
+  return `<div class="cell-with-copy">
+    <span>${value}</span>
+    <button class="copy-btn" onclick="copyToClipboard('${value}', '${label}')">Copy</button>
+  </div>`;
+}
+
+function cidrChip(value, label = 'Copy CIDR') {
+  return `<div class="cell-with-copy">
+    <span class="cidr-chip">${value}</span>
+    <button class="copy-btn" onclick="copyToClipboard('${value}', '${label}')">Copy</button>
+  </div>`;
+}
+
+function updateSliderFill(slider) {
+  const val = parseFloat(slider.value);
+  const min = parseFloat(slider.min) || 0;
+  const max = parseFloat(slider.max) || 100;
+  const percent = ((val - min) / (max - min)) * 100;
+  slider.style.background = `linear-gradient(90deg, #0ea5e9 0%, #14b8a6 ${percent}%, #000 ${percent}%, #000 100%)`;
+}
+
+function buildBinaryUI(mode) {
+  const container = document.getElementById(mode + '-bin-blocks');
+  const state = binState[mode];
+  let html = '';
+
+  for (let o = 0; o < 4; o++) {
+    const octetVal = state.octets[o];
+    const binary = octetVal.toString(2).padStart(8, '0');
+
+    html += `<div class="bit-octet-block" data-octet="${o}">`;
+    html += `<div class="bit-cells">`;
+
+    for (let b = 0; b < 8; b++) {
+      const bitIndex = o * 8 + b;
+      const isNetwork = bitIndex < state.prefix;
+      const bitChar = binary[b];
+      const cls = isNetwork ? 'bit-cell net' : 'bit-cell host';
+
+      html += `<div class="${cls}" data-bit="${bitIndex}" 
+                data-octet="${o}" data-bitpos="${b}"
+                onclick="toggleBit('${mode}', ${o}, ${b})">${bitChar}</div>`;
+    }
+
+    html += `</div>`;
+    html += `<div class="bit-octet-decimal">${octetVal}</div>`;
+    html += `</div>`;
+  }
+
+  container.innerHTML = html;
+  const slider = document.getElementById(mode + '-cidr-slider');
+  if (slider) updateSliderFill(slider);
+}
+
+function toggleBit(mode, octetIdx, bitPos) {
+  const state = binState[mode];
+  const weight = 128 >> bitPos;
+  state.octets[octetIdx] ^= weight;
+  syncAllFromState(mode);
+}
+
+function onFLSMCidrSlider(value) {
+  binState.flsm.prefix = parseInt(value);
+  syncAllFromState('flsm');
+}
+
+function onVLSMCidrSlider(value) {
+  binState.vlsm.prefix = parseInt(value);
+  syncAllFromState('vlsm');
+}
+
+function syncAllFromState(mode) {
+  const state = binState[mode];
+  const ip = state.octets.join('.');
+
+  const ipInput = document.getElementById(mode + '-ip-input');
+  if (ipInput) ipInput.value = ip;
+
+  const prefixInput = document.getElementById(mode + '-prefix-input');
+  const cidrSlider = document.getElementById(mode + '-cidr-slider');
+  const cidrValue = document.getElementById(mode + '-cidr-value');
+  if (prefixInput) prefixInput.value = state.prefix;
+  if (cidrSlider) cidrSlider.value = state.prefix;
+  if (cidrValue) cidrValue.textContent = '/' + state.prefix;
+
+  rebuildBits(mode);
+  if (cidrSlider) updateSliderFill(cidrSlider);
+
+  document.querySelectorAll(`#${mode}-bin-blocks .bit-octet-block`).forEach((block, i) => {
+    const dec = block.querySelector('.bit-octet-decimal');
+    if (dec) dec.textContent = state.octets[i];
+  });
+
+  updateClassBadge(mode);
+  if (mode === 'flsm') updateFLSMQuickInfo();
+}
+
+function rebuildBits(mode) {
+  const state = binState[mode];
+  document.querySelectorAll(`#${mode}-bin-blocks .bit-cell`).forEach(cellEl => {
+    const o = parseInt(cellEl.dataset.octet);
+    const b = parseInt(cellEl.dataset.bitpos);
+    const bitIndex = o * 8 + b;
+    const binary = state.octets[o].toString(2).padStart(8, '0');
+    const isNetwork = bitIndex < state.prefix;
+
+    cellEl.textContent = binary[b];
+    cellEl.className = isNetwork ? 'bit-cell net' : 'bit-cell host';
+  });
+}
+
+function updateFLSMQuickInfo() {
+  try {
+    const state = binState.flsm;
+    const ip = state.octets.join('.');
+    const prefix = state.prefix;
+    const networkInt = ipToInt(ip) & createMaskFromPrefix(prefix);
+    const networkIp = intToIp(networkInt);
+    const maskIp = intToIp(createMaskFromPrefix(prefix));
+    const hostBits = 32 - prefix;
+    const size = Math.pow(2, hostBits);
+    const broadcastInt = networkInt + size - 1;
+    const broadcastIp = intToIp(broadcastInt);
+    const usable = hostBits >= 2 ? size - 2 : (hostBits === 1 ? 0 : 1);
+
+    document.getElementById('flsm-quick-mask').textContent = maskIp;
+    document.getElementById('flsm-quick-network').textContent = networkIp;
+    document.getElementById('flsm-quick-broadcast').textContent = broadcastIp;
+    document.getElementById('flsm-quick-netbits').textContent = prefix;
+    document.getElementById('flsm-quick-hostbits').textContent = hostBits;
+    document.getElementById('flsm-quick-total').textContent = size.toLocaleString();
+    document.getElementById('flsm-quick-hosts').textContent = usable.toLocaleString();
+  } catch(e) {}
+}
+
+function detectAddressClass(ip) {
+  const first = parseInt(ip.trim().split('.')[0], 10);
+  if (isNaN(first) || first < 0 || first > 255) return { name: 'Invalid', prefix: null };
+  if (first >= 1 && first <= 126) return { name: 'Class A', prefix: 8 };
+  if (first >= 128 && first <= 191) return { name: 'Class B', prefix: 16 };
+  if (first >= 192 && first <= 223) return { name: 'Class C', prefix: 24 };
+  if (first === 127) return { name: 'Loopback', prefix: null };
+  return { name: 'Class D/E', prefix: null };
+}
+
+function updateClassBadge(mode) {
+  const state = binState[mode];
+  const ip = state.octets.join('.');
+  const detected = detectAddressClass(ip);
+  const badge = document.getElementById(mode + '-class-badge');
+  if (!badge) return;
+  const preset = document.getElementById(mode + '-class-preset').value;
+  if (preset === 'custom') badge.textContent = `Custom · /${state.prefix}`;
+  else if (preset === 'auto') {
+    badge.textContent = detected.prefix
+      ? `${detected.name} · /${state.prefix}`
+      : detected.name;
+  } else {
+    badge.textContent = `Class ${preset} · /${state.prefix}`;
+  }
+}
+
+function applyFLSMPreset() {
+  const preset = document.getElementById('flsm-class-preset').value;
+  const state = binState.flsm;
+  if (preset === 'A') state.prefix = 8;
+  else if (preset === 'B') state.prefix = 16;
+  else if (preset === 'C') state.prefix = 24;
+  else if (preset === 'auto') {
+    const detected = detectAddressClass(state.octets.join('.'));
+    if (detected.prefix !== null) state.prefix = detected.prefix;
+  }
+  syncAllFromState('flsm');
+}
+
+function applyVLSMPreset() {
+  const preset = document.getElementById('vlsm-class-preset').value;
+  const state = binState.vlsm;
+  if (preset === 'A') state.prefix = 8;
+  else if (preset === 'B') state.prefix = 16;
+  else if (preset === 'C') state.prefix = 24;
+  else if (preset === 'auto') {
+    const detected = detectAddressClass(state.octets.join('.'));
+    if (detected.prefix !== null) state.prefix = detected.prefix;
+  }
+  syncAllFromState('vlsm');
+}
+
+function ipToInt(ip) {
+  const parts = ip.split('.');
+  if (parts.length !== 4) throw new Error('Invalid IP');
+  for (let i = 0; i < 4; i++) {
+    const num = parseInt(parts[i], 10);
+    if (isNaN(num) || num < 0 || num > 255) throw new Error('Invalid octet');
+  }
+  return (parseInt(parts[0]) << 24) + (parseInt(parts[1]) << 16) + (parseInt(parts[2]) << 8) + parseInt(parts[3]);
+}
+
+function intToIp(num) {
+  return [(num >>> 24) & 255, (num >>> 16) & 255, (num >>> 8) & 255, num & 255].join('.');
+}
+
+function createMaskFromPrefix(prefix) {
+  let mask = 0;
+  for (let i = 0; i < prefix; i++) mask |= (1 << (31 - i));
+  return mask >>> 0;
+}
+
+function showMessage(type, message, prefix) {
+  const e = document.getElementById(prefix + '-error-msg');
+  const s = document.getElementById(prefix + '-success-msg');
+  e.classList.remove('show'); s.classList.remove('show');
+  if (type === 'error') { e.textContent = message; e.classList.add('show'); }
+  else if (type === 'success') { s.textContent = message; s.classList.add('show'); }
+}
+
+function calculateFLSM() {
+  try {
+    const state = binState.flsm;
+    const ipInput = state.octets.join('.');
+    const prefixInput = state.prefix;
+    const subnetsCount = parseInt(document.getElementById('flsm-subnets-input').value);
+
+    if (isNaN(prefixInput) || prefixInput < 0 || prefixInput > 32)
+      throw new Error('Invalid CIDR (0-32)');
+    if (isNaN(subnetsCount) || subnetsCount < 1 || subnetsCount > 256)
+      throw new Error('Invalid subnets (1-256)');
+
+    const bitsNeeded = Math.ceil(Math.log2(subnetsCount));
+    const newPrefix = prefixInput + bitsNeeded;
+    if (newPrefix > 32) throw new Error('Insufficient space');
+
+    const networkInt = ipToInt(ipInput) & createMaskFromPrefix(prefixInput);
+    const networkIp = intToIp(networkInt);
+
+    const hostBits = 32 - newPrefix;
+    const subnetSize = Math.pow(2, hostBits);
+    const broadcastInt = networkInt + subnetSize - 1;
+    const broadcastIp = intToIp(broadcastInt);
+
+    const hostsPerSubnet = hostBits >= 2 ? subnetSize - 2 : (hostBits === 1 ? 0 : 1);
+    const firstHostIp = hostBits >= 2 ? intToIp(networkInt + 1) : (hostBits === 1 ? 'N/A' : networkIp);
+    const lastHostIp = hostBits >= 2 ? intToIp(broadcastInt - 1) : (hostBits === 1 ? 'N/A' : broadcastIp);
+    const usableHostRange = hostBits >= 2 ? `${firstHostIp} - ${lastHostIp}` : 'N/A';
+    const newMaskIp = intToIp(createMaskFromPrefix(newPrefix));
+
+    document.getElementById('flsm-result-network').textContent = networkIp;
+    document.getElementById('flsm-result-prefix').textContent = `/${newPrefix}`;
+    document.getElementById('flsm-result-mask').textContent = newMaskIp + '/' + newPrefix;
+    document.getElementById('flsm-result-broadcast').textContent = broadcastIp;
+    document.getElementById('flsm-result-first-host').textContent = firstHostIp;
+    document.getElementById('flsm-result-last-host').textContent = lastHostIp;
+    document.getElementById('flsm-result-usable').textContent = hostsPerSubnet.toLocaleString();
+    document.getElementById('flsm-result-host-range').textContent = usableHostRange;
+
+    document.getElementById('flsm-stat-subnets').textContent = subnetsCount;
+    document.getElementById('flsm-stat-hosts-per').textContent = hostsPerSubnet.toLocaleString();
+    document.getElementById('flsm-stat-new-prefix').textContent = '/' + newPrefix;
+    document.getElementById('flsm-result-count').textContent = 'Calculated successfully';
+
+    document.getElementById('flsm-results-container').classList.add('show');
+
+    flsmCalculatedData = {
+      networkInt, subnetsCount, newPrefix, networkIp, maskIp: newMaskIp, broadcastIp,
+      firstHostIp, lastHostIp, hostsPerSubnet, usableHostRange, prefixInput
+    };
+
+    generateFLSMSubnetTable(networkInt, subnetsCount, newPrefix);
+    showMessage('success', `✓ ${subnetsCount} subnets /${newPrefix}`, 'flsm');
+  } catch (error) {
+    document.getElementById('flsm-results-container').classList.remove('show');
+    document.getElementById('flsm-subnet-table-panel').style.display = 'none';
+    showMessage('error', error.message, 'flsm');
+  }
+}
+
+function generateFLSMSubnetTable(baseNetwork, subnetsCount, newPrefix) {
+  const tbody = document.getElementById('flsm-subnet-body');
+  const tablePanel = document.getElementById('flsm-subnet-table-panel');
+  tbody.innerHTML = '';
+  const subnetSize = Math.pow(2, 32 - newPrefix);
+
+  for (let i = 0; i < subnetsCount; i++) {
+    const subnetNetworkInt = baseNetwork + (i * subnetSize);
+    const subnetNetworkIp = intToIp(subnetNetworkInt);
+    const subnetMaskIp = intToIp(createMaskFromPrefix(newPrefix));
+    const broadcastInt = subnetNetworkInt + subnetSize - 1;
+    const broadcastIp = intToIp(broadcastInt);
+
+    const usableHosts = (32 - newPrefix) >= 2 ? subnetSize - 2 : 0;
+    const firstHostIp = usableHosts > 0 ? intToIp(subnetNetworkInt + 1) : 'N/A';
+    const lastHostIp = usableHosts > 0 ? intToIp(broadcastInt - 1) : 'N/A';
+    const usableHostRange = usableHosts > 0 ? `${firstHostIp} – ${lastHostIp}` : 'N/A';
+
+    const cidrNotation = `${subnetNetworkIp}/${newPrefix}`;
+    const reserved = usableHosts > 0 ? broadcastIp : subnetNetworkIp;
+
+    const row = tbody.insertRow();
+    row.innerHTML = `
+      <td class="row-num">${i + 1}</td>
+      <td>${cidrChip(cidrNotation, 'CIDR copied!')}</td>
+      <td>${subnetNetworkIp}</td>
+      <td>${cellCopy(subnetMaskIp, 'Mask copied!')}</td>
+      <td>${broadcastIp}</td>
+      <td>${usableHostRange}</td>
+      <td>${usableHosts.toLocaleString()}</td>
+      <td>${reserved}</td>
+    `;
+  }
+
+  document.getElementById('flsm-subnet-count').textContent = `${subnetsCount} subnets`;
+  tablePanel.style.display = 'block';
+}
+
+function resetFLSM() {
+  binState.flsm = { octets: [192, 168, 1, 0], prefix: 24 };
+  document.getElementById('flsm-class-preset').value = 'auto';
+  document.getElementById('flsm-subnets-input').value = '4';
+  document.getElementById('flsm-results-container').classList.remove('show');
+  document.getElementById('flsm-subnet-table-panel').style.display = 'none';
+  document.getElementById('flsm-error-msg').classList.remove('show');
+  document.getElementById('flsm-success-msg').classList.remove('show');
+  document.getElementById('flsm-result-count').textContent = 'Awaiting calculation';
+  buildBinaryUI('flsm');
+  syncAllFromState('flsm');
+}
+
+function copyFLSMResults() {
+  if (!flsmCalculatedData) return;
+  const d = flsmCalculatedData;
+  const text = `Network: ${d.networkIp}\nMask: ${d.maskIp}/${d.newPrefix}\nBroadcast: ${d.broadcastIp}\nFirst Host: ${d.firstHostIp}\nLast Host: ${d.lastHostIp}\nRange: ${d.usableHostRange}\nUsable Hosts: ${d.hostsPerSubnet}`;
+  copyToClipboard(text, 'Results copied!');
+}
+
+function exportFLSMCSV() {
+  if (!flsmCalculatedData) return;
+  const tbody = document.getElementById('flsm-subnet-body');
+  let csv = 'Subnet,Network,SubnetMask,Broadcast,UsableRange,UsableHosts,Reserved\n';
+  for (let row of tbody.rows) {
+    const cells = Array.from(row.cells).map(c => {
+      const span = c.querySelector('.cell-with-copy span');
+      return span ? span.textContent.trim() : c.textContent.trim();
+    });
+    csv += cells.join(',') + '\n';
+  }
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `flsm-subnets-${Date.now()}.csv`;
+  a.click();
+  showMessage('success', '✓ Exported CSV', 'flsm');
+}
+
+function addVLSMSubnet() {
+  const container = document.getElementById('vlsm-subnets-container');
+  const id = Date.now();
+  const item = document.createElement('div');
+  item.className = 'vlsm-row';
+  item.id = 'vlsm-subnet-' + id;
+  item.innerHTML = `
+    <input type="text" placeholder="Subnet Name" class="vlsm-input vlsm-name" value="Subnet ${vlsmSubnets.length + 1}">
+    <input type="number" placeholder="Hosts" class="vlsm-input vlsm-hosts" min="1" value="50">
+    <button class="btn btn-danger" onclick="removeVLSMSubnet('${id}')">✕</button>
+  `;
+  container.appendChild(item);
+  vlsmSubnets.push(id);
+}
+
+function removeVLSMSubnet(id) {
+  document.getElementById('vlsm-subnet-' + id).remove();
+  vlsmSubnets = vlsmSubnets.filter(x => x !== id);
+}
+
+function calculateVLSM() {
+  try {
+    const state = binState.vlsm;
+    const ipInput = state.octets.join('.');
+    const prefixInput = state.prefix;
+
+    if (isNaN(prefixInput) || prefixInput < 0 || prefixInput > 32)
+      throw new Error('Invalid CIDR (0-32)');
+    if (vlsmSubnets.length === 0) throw new Error('Add at least one subnet');
+
+    const networkInt = ipToInt(ipInput) & createMaskFromPrefix(prefixInput);
+
+    const requirements = vlsmSubnets.map((subnetId, idx) => {
+      const nameEl = document.querySelector('#vlsm-subnet-' + subnetId + ' .vlsm-name');
+      const hostsEl = document.querySelector('#vlsm-subnet-' + subnetId + ' .vlsm-hosts');
+      const name = nameEl.value.trim() || `Subnet ${idx + 1}`;
+      const hosts = parseInt(hostsEl.value);
+      if (isNaN(hosts) || hosts < 1) throw new Error(`Invalid host requirement for "${name}"`);
+      return { name, hosts };
+    }).sort((a, b) => b.hosts - a.hosts);
+
+    const subnets = [];
+    let currentNetwork = networkInt;
+
+    for (let req of requirements) {
+      const bitsNeeded = Math.ceil(Math.log2(req.hosts + 2));
+      const newPrefix = prefixInput + bitsNeeded;
+      if (newPrefix > 32) throw new Error(`Subnet "${req.name}" requires too many bits`);
+
+      const subnetSize = Math.pow(2, 32 - newPrefix);
+      const broadcastInt = currentNetwork + subnetSize - 1;
+      const usableHosts = subnetSize - 2;
+
+      subnets.push({
+        name: req.name,
+        network: intToIp(currentNetwork),
+        mask: intToIp(createMaskFromPrefix(newPrefix)),
+        prefix: newPrefix,
+        requestedHosts: req.hosts,
+        hosts: usableHosts,
+        firstHost: intToIp(currentNetwork + 1),
+        lastHost: intToIp(broadcastInt - 1),
+        broadcast: intToIp(broadcastInt)
+      });
+
+      currentNetwork += subnetSize;
+    }
+
+    if (currentNetwork > ipToInt(intToIp(networkInt + Math.pow(2, 32 - prefixInput) - 1)))
+      throw new Error('Subnets exceed available space');
+
+    renderVLSMResults(subnets);
+    showMessage('success', `✓ ${subnets.length} VLSM subnets calculated`, 'vlsm');
+  } catch (error) {
+    document.getElementById('vlsm-results-container').classList.remove('show');
+    showMessage('error', error.message, 'vlsm');
+  }
+}
+
+function renderVLSMResults(subnets) {
+  const tbody = document.getElementById('vlsm-results-body');
+  tbody.innerHTML = '';
+  subnets.forEach((s, idx) => {
+    const row = tbody.insertRow();
+    row.innerHTML = `<td>${idx + 1}</td><td>${s.name}</td><td>${s.network}</td><td>${s.mask}</td><td>/${s.prefix}</td><td>${s.requestedHosts}</td><td>${s.hosts.toLocaleString()}</td><td>${s.firstHost}</td><td>${s.lastHost}</td><td>${s.broadcast}</td>`;
+  });
+  vlsmCalculatedData = subnets;
+  document.getElementById('vlsm-results-container').classList.add('show');
+  document.getElementById('vlsm-result-count').textContent = subnets.length + ' subnets calculated';
+}
+
+function resetVLSMSubnets() {
+  const container = document.getElementById('vlsm-subnets-container');
+  const header = container.querySelector('.vlsm-row.header');
+  container.innerHTML = '';
+  container.appendChild(header);
+  vlsmSubnets = [];
+  document.getElementById('vlsm-results-container').classList.remove('show');
+}
+
+function copyVLSMResults() {
+  if (!vlsmCalculatedData) return;
+  let text = 'VLSM Subnets:\n\n';
+  vlsmCalculatedData.forEach((s, idx) => {
+    text += `${idx + 1}. ${s.name}\n   Network: ${s.network}\n   Mask: ${s.mask}\n   Prefix: /${s.prefix}\n   Requested: ${s.requestedHosts}, Usable: ${s.hosts}\n   First: ${s.firstHost}, Last: ${s.lastHost}\n   Broadcast: ${s.broadcast}\n\n`;
+  });
+  copyToClipboard(text, 'VLSM copied!');
+}
+
+function exportVLSMCSV() {
+  if (!vlsmCalculatedData) return;
+  let csv = 'Subnet,Name,Network,SubnetMask,Prefix,RequestedHosts,UsableHosts,FirstHost,LastHost,Broadcast\n';
+  vlsmCalculatedData.forEach((s, idx) => {
+    csv += `${idx + 1},${s.name},${s.network},${s.mask},${s.prefix},${s.requestedHosts},${s.hosts},${s.firstHost},${s.lastHost},${s.broadcast}\n`;
+  });
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `vlsm-subnets-${Date.now()}.csv`;
+  a.click();
+  showMessage('success', '✓ Exported CSV', 'vlsm');
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  buildBinaryUI('flsm');
+  buildBinaryUI('vlsm');
+  syncAllFromState('flsm');
+  syncAllFromState('vlsm');
+
+  document.getElementById('flsm-ip-input').addEventListener('input', (e) => {
+    const parts = e.target.value.split('.');
+    if (parts.length === 4 && parts.every(p => !isNaN(parseInt(p)))) {
+      binState.flsm.octets = parts.map(p => Math.min(255, Math.max(0, parseInt(p) || 0)));
+      syncAllFromState('flsm');
+    }
+  });
+
+  document.getElementById('vlsm-ip-input').addEventListener('input', (e) => {
+    const parts = e.target.value.split('.');
+    if (parts.length === 4 && parts.every(p => !isNaN(parseInt(p)))) {
+      binState.vlsm.octets = parts.map(p => Math.min(255, Math.max(0, parseInt(p) || 0)));
+      syncAllFromState('vlsm');
+    }
+  });
+
+  document.getElementById('flsm-prefix-input').addEventListener('input', (e) => {
+    const v = Math.min(32, Math.max(0, parseInt(e.target.value) || 0));
+    binState.flsm.prefix = v;
+    syncAllFromState('flsm');
+  });
+
+  document.getElementById('vlsm-prefix-input').addEventListener('input', (e) => {
+    const v = Math.min(32, Math.max(0, parseInt(e.target.value) || 0));
+    binState.vlsm.prefix = v;
+    syncAllFromState('vlsm');
+  });
+
+  addVLSMSubnet();
+  addVLSMSubnet();
+
+  document.getElementById('flsm-ip-input').addEventListener('keypress', e => e.key === 'Enter' && calculateFLSM());
+  document.getElementById('flsm-prefix-input').addEventListener('keypress', e => e.key === 'Enter' && calculateFLSM());
+  document.getElementById('flsm-subnets-input').addEventListener('keypress', e => e.key === 'Enter' && calculateFLSM());
+});
+</script>
+</body>
+</html>
