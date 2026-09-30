@@ -1,103 +1,254 @@
-```
- ███████╗██╗   ██╗██████╗ ██╗   ██╗███████╗████████╗    ███╗   ███╗ █████╗ ███████╗████████╗███████╗██████╗ 
- ██╔════╝██║   ██║██╔══██╗██║   ██║██╔════╝╚══██╔══╝    ████╗ ████║██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗
- ███████╗██║   ██║██████╔╝██║   ██║█████╗     ██║       ██╔████╔██║███████║███████╗   ██║   █████╗  ██████╔╝
- ╚════██║██║   ██║██╔══██╗██║   ██║██╔══╝     ██║       ██║╚██╔╝██║██╔══██║╚════██║   ██║   ██╔══╝  ██╔══██╗
- ███████║╚██████╔╝██████╔╝╚██████╔╝███████╗   ██║       ██║ ╚═╝ ██║██║  ██║███████║   ██║   ███████╗██║  ██║
- ╚══════╝ ╚═════╝ ╚═════╝  ╚═════╝ ╚══════╝   ╚═╝       ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝
-```
+🌊 SUBNET MASTER
 
-## Overview
+ ███████╗██╗   ██╗██████╗ ███╗   ██╗███████╗████████╗
+ ██╔════╝██║   ██║██╔══██╗████╗  ██║██╔════╝╚══██╔══╝
+ ███████╗██║   ██║██████╔╝██╔██╗ ██║█████╗     ██║
+ ╚════██║██║   ██║██╔══██╗██║╚██╗██║██╔══╝     ██║
+ ███████║╚██████╔╝██████╔╝██║ ╚████║███████╗   ██║
+ ╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝   ╚═╝
 
-**Subnet Master** is a deep ocean-themed subnet calculator and network visualization tool. Built with a modern, elegant interface featuring a dark blue and teal color scheme, it provides powerful networking utilities for engineers and IT professionals.
+ ███╗   ███╗ █████╗ ███████╗████████╗███████╗██████╗
+ ████╗ ████║██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗
+ ██╔████╔██║███████║███████╗   ██║   █████╗  ██████╔╝
+ ██║╚██╔╝██║██╔══██║╚════██║   ██║   ██╔══╝  ██╔══██╗
+ ██║ ╚═╝ ██║██║  ██║███████║   ██║   ███████╗██║  ██║
+ ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝
 
-## Features
+                 NETWORK SUBNETTING STUDIO
 
-### 🌊 Deep Ocean Design
-- Navy + teal + gold color palette
-- Smooth glassmorphism effects
-- Responsive and intuitive UI
-- Professional dark theme
+A modern browser-based IPv4 subnetting calculator for learning,
+planning, and network analysis.
 
-### 🧮 Subnet Calculation
-- CIDR notation support
-- Subnet mask generation
-- Network range calculation
-- Host counting and analysis
+✨ Overview
 
-### 📊 Visual Tools
-- Bit breakdown panel with interactive sliders
-- Real-time IP bit visualization
-- Octect decomposition display
-- VLSM (Variable Length Subnet Mask) support
+Subnet Master is a single-page web application for IPv4 subnet
+calculations. It provides two modes:
 
-### 🔍 Advanced Features
-- Multiple calculation modes
-- Detailed network statistics
-- Comprehensive result cards
-- Copy-friendly monospace font displays
+FLSM --- Fixed Length Subnet Masking
 
-## Getting Started
+VLSM --- Variable Length Subnet Masking
 
-1. Open `index.html` in your web browser
-2. Select your calculation mode (Calculator or VLSM)
-3. Enter your IP address and subnet mask
-4. View instant results with detailed breakdowns
+The interface uses a dark Deep Ocean theme with blue, teal, and gold
+accents. It also provides an interactive bit-level view showing the
+network/host boundary as the CIDR prefix changes.
 
-## Technologies
+🚀 Features
 
-- **HTML5** - Semantic markup
-- **CSS3** - Modern styling with CSS variables and glassmorphism
-- **JavaScript** - Interactive calculations and UI logic
-- **Fonts** - Inter (UI) and JetBrains Mono (code)
+FLSM --- Fixed Length Subnetting
 
-## File Structure
+Network address input
 
-```
-Subnet-Master/
-├── index.html          # Main application
-├── README.md          # This file
-└── assets/            # Resources (if added)
-```
+Automatic or manual Class A, B, and C selection
 
-## Browser Support
+Custom CIDR prefix
 
-- Chrome/Edge (latest)
-- Firefox (latest)
-- Safari (latest)
-- Mobile browsers
+Configurable subnet count
 
-## Usage Examples
+Automatic subnet calculations
 
-### Basic Subnet Calculation
-1. Enter IP: `192.168.1.0`
-2. Enter CIDR: `/24`
-3. View network details, host ranges, and broadcast address
+Network and broadcast addresses
 
-### VLSM Planning
-Switch to VLSM mode to plan complex network hierarchies with multiple subnet sizes.
+First and last usable hosts
 
-## Color Palette
+Usable hosts per subnet
 
-| Color | Usage |
-|-------|-------|
-| Ocean Blue (#0ea5e9) | Primary accents |
-| Bright Teal (#14b8a6) | Secondary accents |
-| Warm Gold (#fbbf24) | Warning/highlight |
-| Navy (#050b14) | Dark backgrounds |
+Complete subnet table
 
-## Future Enhancements
+Copy results to clipboard
 
-- IPv6 support
-- Export to CSV/JSON
-- Network diagram generation
-- Custom color themes
-- Keyboard shortcuts
+CSV export
 
-## License
+VLSM --- Variable Length Subnetting
 
-Open source project for educational and professional use.
+Starting network address
 
----
+Starting CIDR prefix
 
-**Built with ❤️ by the Subnet Master team**
+Multiple named subnet requirements
+
+Required host counts
+
+Largest-to-smallest requirement processing
+
+Automatic prefix sizing
+
+Network, mask, prefix, requested hosts, usable hosts, first host,
+last host, and broadcast output
+
+Copy results to clipboard
+
+CSV export
+
+🧮 Bit-Level Breakdown
+
+Interactive /0--/32 CIDR slider
+
+Network bits and host bits
+
+Four IPv4 octets
+
+Decimal octet values
+
+Subnet mask
+
+Network address
+
+Broadcast address
+
+Total addresses
+
+Usable hosts
+
+🖥️ Interface
+
+SUBNET MASTER
+│
+├── Live Status
+│
+├── FLSM · Fixed Length
+│   ├── Configuration
+│   ├── Bit-Level Breakdown
+│   ├── Results
+│   └── Subnet Table
+│
+└── VLSM · Variable Length
+    ├── Configuration
+    ├── Subnet Requirements
+    ├── Bit-Level Breakdown
+    └── VLSM Results
+
+📊 Results
+
+FLSM
+
+Network
+Prefix
+Subnet Mask
+Broadcast
+First Host
+Last Host
+Usable Hosts
+Host Range
+
+Subnets
+Hosts / Subnet
+New Prefix
+
+The subnet table includes:
+
+# | Subnet (CIDR) | Network | Subnet Mask |
+  | Broadcast | Usable Range | Usable Hosts | Reserved
+
+VLSM
+
+# | Name | Network | Mask | Prefix |
+  | Requested | Usable | First | Last | Broadcast
+
+🛠️ Technology
+
+HTML5
+
+CSS3
+
+Vanilla JavaScript
+
+Inter
+
+JetBrains Mono
+
+No frontend framework or build system is required.
+
+📁 Project Structure
+
+.
+└── index(2).html
+
+The application is contained in one HTML file with the UI, styling,
+subnetting logic, binary visualization, clipboard handling, and CSV
+export.
+
+▶️ Run Locally
+
+Open the HTML file directly in a modern browser:
+
+index(2).html
+
+Or use a local server:
+
+python -m http.server 8000
+
+Then visit:
+
+http://localhost:8000
+
+🔢 Example --- FLSM
+
+Network Address : 192.168.1.0
+CIDR            : /24
+Subnets         : 4
+
+Subnet Master calculates the new prefix and generates the subnet
+information and table.
+
+🔢 Example --- VLSM
+
+Engineering  → 100 hosts
+Sales        → 50 hosts
+Management   → 25 hosts
+Guest        → 10 hosts
+
+The calculator allocates variable-length subnets based on the requested
+host counts.
+
+📚 Learning Use Cases
+
+IPv4 subnetting practice
+
+FLSM exercises
+
+VLSM exercises
+
+CIDR learning
+
+Binary subnet-mask visualization
+
+Network planning
+
+Networking classroom demonstrations
+
+Quick subnet calculations
+
+🎨 Design
+
+The application follows a Deep Ocean visual style:
+
+Primary    → Ocean Blue
+Accent     → Teal
+Highlight  → Warm Gold
+Background → Deep Navy
+
+It also includes responsive layouts for smaller screens.
+
+⚠️ Notes
+
+Subnet Master is a browser-based IPv4 subnetting calculator intended for
+educational, planning, and network-administration use.
+
+Verify calculated network plans against your real infrastructure
+requirements before deployment.
+
+📄 License
+
+No license is specified in the provided source.
+
+If you publish this repository publicly, add a license that reflects how
+you want others to use, modify, and distribute the project.
+
+👨‍💻 Project
+
+SUBNET MASTER
+
+A practical IPv4 subnetting and network-planning studio.
+
+⭐ If this project helps you learn networking, consider starring the
+repository.
