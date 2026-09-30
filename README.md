@@ -165,7 +165,7 @@ python -m http.server 8000
 Then visit:
 
 ``` text
-http://localhost:8000
+https://subnet-master-beige.vercel.app/
 ```
 
 ## 🔢 Example --- FLSM
